@@ -67,47 +67,47 @@
   
     生产单例的类必须保证只有一个实例存在
   
-  实例：
-  
-    ```
-    class LoginForm {
-        constructor() {
-            this.state = 'hide'
-        }
-        show() {
-            if(this.state === 'show') {
-                alert('已经提示')
-                return;
-            }
-            this.state = 'show';
-            console.log('登录框显示成功')
-        }
-        hide() {
-            if(this.state === 'hide') {
-                alert('已经隐藏')
-                return;
-            }
-            this.state = 'hide';
-            console.log('登录框隐藏成功')
-        }
-    }
-    // 静态方法
-    LoginForm.getInstance = (function() {
-        let instance;
-        return function() {
-        // 如果已经存在，return存在的，否则new
-            if(!instance) {
-                instance = new LoginForm()
-            }
-            return instance
-        }
-    })()
+实例：
 
-    let login1 = LoginForm.getInstance();
-    login1.show()
+  ```
+  class LoginForm {
+      constructor() {
+          this.state = 'hide'
+      }
+      show() {
+          if(this.state === 'show') {
+              alert('已经提示')
+              return;
+          }
+          this.state = 'show';
+          console.log('登录框显示成功')
+      }
+      hide() {
+          if(this.state === 'hide') {
+              alert('已经隐藏')
+              return;
+          }
+          this.state = 'hide';
+          console.log('登录框隐藏成功')
+      }
+  }
+  // 静态方法
+  LoginForm.getInstance = (function() {
+      let instance;
+      return function() {
+      // 如果已经存在，return存在的，否则new
+          if(!instance) {
+              instance = new LoginForm()
+          }
+          return instance
+      }
+  })()
 
-    let login2 = LoginForm.getInstance();
-    login2.hide()
-    
-    login1 === login2 true
-    ```
+  let login1 = LoginForm.getInstance();
+  login1.show()
+
+  let login2 = LoginForm.getInstance();
+  login2.hide()
+
+  login1 === login2 true
+  ```
