@@ -63,7 +63,7 @@
   console.log($p.addClass)
   ```
 
-2、单例模式
+2、单例模式:vuex中的store-state就是
   
     生产单例的类必须保证只有一个实例存在
   
