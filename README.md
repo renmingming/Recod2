@@ -28,36 +28,84 @@
 
     便于扩展，如新增一种业务，只需增加相关业务对象类和工厂类中的生产业务对象的方法，不需要修改其他地方
 
+实例：
 
-```
-class JQuery{
-    constructor(seletor) {
-        let slice = Array.prototype.slice
-        let dom = slice.call(document.querySelectorAll(seletor))
-        console.log(document.querySelectorAll(seletor))
-        let len = dom ? dom.length : 0
-        for(let i = 0; i < len; i++) {
-            this[i] = dom[i]
-        }
-        this.length = len
-        this.seletor = seletor || ''
-    }
-    append(node) {
+  ```
+  class JQuery{
+      constructor(seletor) {
+          let slice = Array.prototype.slice
+          let dom = slice.call(document.querySelectorAll(seletor))
+          console.log(document.querySelectorAll(seletor))
+          let len = dom ? dom.length : 0
+          for(let i = 0; i < len; i++) {
+              this[i] = dom[i]
+          }
+          this.length = len
+          this.seletor = seletor || ''
+      }
+      append(node) {
 
-    }
-    addClass(name) {
+      }
+      addClass(name) {
 
-    }
-    html(data) {
+      }
+      html(data) {
 
-    }
-}
+      }
+  }
 
-window.$ = function(selector) {
-    // 工程模式
-    return new JQuery(selector)
-}
-var $p = $('p');
-console.log($p);
-console.log($p.addClass)
-```
+  window.$ = function(selector) {
+      // 工程模式
+      return new JQuery(selector)
+  }
+  var $p = $('p');
+  console.log($p);
+  console.log($p.addClass)
+  ```
+
+2、单例模式
+  
+    生产单例的类必须保证只有一个实例存在
+  
+  实例：
+  
+    ```
+      class LoginForm {
+          constructor() {
+              this.state = 'hide'
+          }
+          show() {
+              if(this.state === 'show') {
+                  alert('已经提示')
+                  return;
+              }
+              this.state = 'show';
+              console.log('登录框显示成功')
+          }
+          hide() {
+              if(this.state === 'hide') {
+                  alert('已经隐藏')
+                  return;
+              }
+              this.state = 'hide';
+              console.log('登录框隐藏成功')
+          }
+      }
+      // 静态方法
+      LoginForm.getInstance = (function() {
+          let instance;
+          return function() {
+          // 如果已经存在，return存在的，否则new
+              if(!instance) {
+                  instance = new LoginForm()
+              }
+              return instance
+          }
+      })()
+
+      let login1 = LoginForm.getInstance();
+      login1.show()
+
+      let login2 = LoginForm.getInstance();
+      login2.hide()
+    ```
