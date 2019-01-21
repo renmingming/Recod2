@@ -173,6 +173,54 @@ class MyClass {
 }
 let obj = new MyClass()
 obj.foo()
+
+// 类方法装饰器只读
+function  readonly(target, name, descriptor) {
+    // descriptor {
+    //     value: specifiedFunction, // 属性值
+    //     enumerable: false, // 是否可枚举
+    //     configurable: true, // 是否可配置
+    //     writable: true // 是否可写
+    // }
+    descriptor.writable = false // 关闭写
+    return descriptor;
+}
+class Person {
+    constructor() {
+        this.first = 'A'
+        this.last = 'B'
+    }
+    // 不能对name重新修改
+    @readonly
+    name() {
+        return `${this.first}: ${this.last}`
+    }
+}
+
+let p = new Person()
+console.log(p.name())
+
+// 类方法装饰 ：log
+function log(target, name, descriptor) {
+    let oldValue = descriptor.value;
+    descriptor.value = function () {
+        console.log(`calling ${name} width`,arguments)
+        return oldValue.apply(this, arguments)
+    }
+    return descriptor
+}
+
+class Math {
+    @log
+    add(a,b) {
+        return a+b
+    }
+}
+
+let math = new Math()
+const result = math.add(1,2)
+// 先打印log在输出值
+console.log(result)
 ```
 
      
