@@ -111,3 +111,29 @@
 
   login1 === login2 true
   ```
+  
+  3、适配器模式
+  
+经典案例：封装就接口ajax；vue的computed
+  ```
+  // 自己封装的ajax，新需要的格式
+  ajax({
+      url: '/getData',
+      type: 'POST',
+      dataType: 'json',
+      data: {
+          id: '123'
+      }
+  })
+  // 旧代码全都是一下这种
+    $.ajax({})
+  // 避免手动全部替换，做一层适配器
+    var $ = {
+        ajax: function(options) {
+            return ajax(options)
+        }
+    }
+  ```
+  
+     
+     
