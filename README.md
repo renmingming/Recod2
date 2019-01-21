@@ -112,7 +112,7 @@
   login1 === login2 true
   ```
   
-  3、适配器模式
+3、适配器模式
   
 经典案例：封装就接口ajax；vue的computed
   ```
@@ -134,6 +134,46 @@
         }
     }
   ```
-  
+4、装饰器模式
+    · 为对象添加新功能
+    · 不改变其原有的结构和功能
+  es7 中的 decorator需要babel插件：babel-plugin-transform-decorators-legacy
+```
+//原理
+@decorator
+class A{}
+//等同于
+class A{}
+A = decorator(A) || A;
+
+// 参数形式
+function testDec(isDec) {
+    // 装饰器是一个函数
+    return function (target) {
+        target.isDec =isDec
+    }
+}
+@testDec(false)
+class Demo {}
+alert(Demo.isDec)
+
+//mixins混合模式
+function minxins (...list) {
+    return function (target) {
+        Object.assign(target.prototype, ...list)
+    }
+}
+const Foo = {
+    foo() {
+        alert('foo')
+    }
+}
+@minxins(Foo)
+class MyClass {
+}
+let obj = new MyClass()
+obj.foo()
+```
+
      
      
