@@ -137,6 +137,7 @@
 4、装饰器模式
     · 为对象添加新功能
     · 不改变其原有的结构和功能
+  第三方装饰类：core-decorators
   es7 中的 decorator需要babel插件：babel-plugin-transform-decorators-legacy
 ```
 //原理
@@ -222,6 +223,7 @@ const result = math.add(1,2)
 // 先打印log在输出值
 console.log(result)
 ```
+
 
      
      
