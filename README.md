@@ -279,3 +279,9 @@ console.log(agent.price)
 agent.customPrice = 90000;
 console.log('customPrice:'+agent.customPrice)
 ```
+
+6、外观模式
+
+    为子系统中的一组接口提供了一个高层接口
+    
+    使用者使用这个高层接口
