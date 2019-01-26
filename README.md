@@ -113,6 +113,7 @@
   ```
   
 3、适配器模式
+    提供一个不同的接口
   
 经典案例：封装就接口ajax；vue的computed
   ```
@@ -225,7 +226,7 @@ console.log(result)
 ```
 
 5、代理模式
-
+    提供一模一样的接口
 $.proxy()
 
 ```
@@ -278,7 +279,3 @@ console.log(agent.price)
 agent.customPrice = 90000;
 console.log('customPrice:'+agent.customPrice)
 ```
-
-
-     
-     
