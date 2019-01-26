@@ -224,6 +224,61 @@ const result = math.add(1,2)
 console.log(result)
 ```
 
+5、代理模式
+
+$.proxy()
+
+```
+$('.btn').click(function(){
+  var fn = function(){
+    $(this).css('color','#fff');
+  }
+  fn = $.proxy(fn,this);
+  setTimeout(fn,1000)
+})
+```
+ES6 Proxy
+```
+// 明星
+let star = {
+    name: 'mign',
+    age: 25,
+    phone: '13111123123'
+}
+
+// 经纪人
+let agent = new Proxy(star, {
+    get: function(target, key) {
+        if(key === 'phone') {
+            // 返回经纪人自己的电话
+            return '12342323242'
+        }
+        if(key === 'price') {
+            //经纪人报价
+            return 120000
+        }
+        return target[key]
+    },
+    set: function(target, key, val) {
+        if(key === 'customPrice') {
+            if(val < 100000) {
+                throw new Error('价格太低')
+            }else{
+                target[key] = val
+                return true
+            }
+        }
+    }
+})
+
+console.log(agent.name)
+console.log(agent.age)
+console.info(agent.phone)
+console.log(agent.price)
+agent.customPrice = 90000;
+console.log('customPrice:'+agent.customPrice)
+```
+
 
      
      
