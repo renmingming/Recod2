@@ -334,6 +334,8 @@ console.log('customPrice:'+agent.customPrice)
 ```
 场景：
 
+    vue生命周期、watch
+
     网页事件绑定
 
     promise
