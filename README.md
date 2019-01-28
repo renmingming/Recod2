@@ -339,6 +339,7 @@ console.log('customPrice:'+agent.customPrice)
     promise
 
     $.Callbacks
+    
       ```
       // 自定义事件，自定义回调
           var callbacks = $.Callbacks();
