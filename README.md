@@ -356,3 +356,62 @@ console.log('customPrice:'+agent.customPrice)
           console.log('fn3', info)
       })
       callbacks.fire('gogo')
+      
+  8、迭代器模式：顺序遍历有序集合；使用者不必知道集合的内部结构
+  
+  示例：jquery
+    ```
+    var arr = [1,2,3];
+    var nodeList = document.getElementsByTagName('a');
+    var $a = $('a');
+    function each(data) {
+      var $data = $(data); // 生成迭代器
+      $data.each(function(key,val){
+        console.log(key,val);
+      })
+    }
+    each(arr);
+    each(nodeList);
+    each($a);
+    ```
+  示例2:
+  ```
+  class Iterator {
+      constructor(container) {
+          this.list = container.list
+          this.index = 0
+      }
+      next() {
+          if(this.hasNext()) {
+              return this.list[this.index++]
+          }
+          return null
+      }
+      hasNext() {
+          if(this.index == this.list.length) {
+              return false
+          }
+          return true
+      }
+  }
+
+  class Container {
+      constructor(list) {
+          this.list = list
+      }
+
+      // 生成迭代器
+      getIterator() {
+          return new Iterator(this)
+      }
+  }
+
+  var arr = [1,2,3,4,5,6]
+  let container = new Container(arr)
+  let iterator = container.getIterator()
+  while(iterator.hasNext()) {
+      console.log(iterator.next())
+  }
+```
+    
+      
