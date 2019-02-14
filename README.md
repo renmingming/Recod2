@@ -413,5 +413,22 @@ console.log('customPrice:'+agent.customPrice)
       console.log(iterator.next())
   }
 ```
+场景3:
+```
+  function each(data) {
+      // 生成迭代器
+      let iterator = data[Symbol.iterator]() //{value:'',done:false}
+
+      let item = {done: false}
+
+      while(!item.done) {
+          item = iterator.next()
+          if(!item.done) {
+              console.log(item.value)
+          }
+      }
+
+  }
+```
     
       
