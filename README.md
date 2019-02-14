@@ -429,6 +429,13 @@ console.log('customPrice:'+agent.customPrice)
       }
 
   }
+  
+  function each(data) {
+      // data带有遍历器特性的对象：data[Symbol.itertaor] 有值,才能使用for。。。of
+      for(let item of data) {
+        console.log(item)
+      }
+  }
 ```
     
       
