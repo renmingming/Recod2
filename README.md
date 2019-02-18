@@ -413,29 +413,162 @@ console.log('customPrice:'+agent.customPrice)
       console.log(iterator.next())
   }
 ```
-场景3:
+  场景3:
+  ```
+    function each(data) {
+        // 生成迭代器
+        let iterator = data[Symbol.iterator]() //{value:'',done:false}
+
+        let item = {done: false}
+
+        while(!item.done) {
+            item = iterator.next()
+            if(!item.done) {
+                console.log(item.value)
+            }
+        }
+
+    }
+
+    function each(data) {
+        // data带有遍历器特性的对象：data[Symbol.itertaor] 有值,才能使用for。。。of
+        for(let item of data) {
+          console.log(item)
+        }
+    }
+  ```
+    
+  9、状态模式
+    状态改变执行对应逻辑
+    promise就是一个有限状态机
+    有限状态机的函数库javascript-state-machine
+    
+示例1:
 ```
-  function each(data) {
-      // 生成迭代器
-      let iterator = data[Symbol.iterator]() //{value:'',done:false}
+import StateMachine from 'javascript-state-machine'
+import $ from 'jquery'
 
-      let item = {done: false}
+// 初始化状态模型
+let fsm = new StateMachine({
+    init: '收藏',
+    transitions: [
+        {
+            name: 'doStore',
+            from: '收藏',
+            to: '取消收藏'
+        },{
+            name: 'deleteStore',
+            from: '取消收藏',
+            to: '收藏'
+        }
+    ],
+    methods: {
+        // 监听执行收藏
+        onDoStore: function() {
+            alert('收藏成功') 
+            updateText()
+        },
+        onDeleteStore: function() {
+            alert('已经取消收藏')
+            updateText()
+        }
+    }
+})
 
-      while(!item.done) {
-          item = iterator.next()
-          if(!item.done) {
-              console.log(item.value)
-          }
-      }
+let $btn = $('#btn1')
+$btn.click(function() {
+    if(fsm.is('收藏')) {
+        fsm.doStore()
+    }else{
+        fsm.deleteStore()
+    }
+})
 
-  }
-  
-  function each(data) {
-      // data带有遍历器特性的对象：data[Symbol.itertaor] 有值,才能使用for。。。of
-      for(let item of data) {
-        console.log(item)
-      }
-  }
+// 更新状态文案
+function updateText() {
+    $btn.text(fsm.state)
+}
+
+// 初始化文案
+updateText()
+```
+    
+示例2：promise
+```
+let fsm = new StateMachine({
+    init: 'pending',
+    transitions: [
+        {
+            name: 'resolve', //事件名称
+            from:'pending',
+            to: 'fullfilled'
+        },{
+            name: 'reject',
+            from: 'pending',
+            to: 'rejected'
+        }
+    ],
+    methods: {
+        onResolve: function(state, data) {
+            // state当前状态机实例，data - fsm.resolve(xxx) 传递的参数
+            // console.log(data)
+            data.succesList.forEach(fn => fn());
+        },
+        onReject: function(state, data) {
+            data.failList.forEach(fn => fn());
+        }
+    }
+})
+
+class MyPromise {
+    constructor(fn) {
+        this.succesList = []
+        this.failList = []
+
+        fn(() => {
+            // resolve函数
+            console.log(this)
+            // 注意this指向问题
+            fsm.resolve(this)
+        }, () => {
+            // reject函数
+            fsm.reject(this)
+        })
+    }
+    then(succesFn, failFn) {
+        this.succesList.push(succesFn)
+        this.failList.push(failFn)
+    }
+}
+
+function loading(src) {
+    const promise = new MyPromise(function(resolve, reject) {
+        let img = document.createElement('img')
+        img.onload = function() {
+            resolve(img)
+        }
+        img.onerror = function() {
+            reject()
+        }
+        img.src = src
+    })
+    return promise
+}
+
+let src = 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1550501692674&di=ed5756b11370ea8e93d6532be98eacab&imgtype=0&src=http%3A%2F%2Fi0.hdslb.com%2Fbfs%2Farchive%2F84c90c914046d6de6ad78c222643a1b6f4c6aec0.jpg'
+let result = loading(src)
+
+result.then(function() {
+    console.log('ok1')
+}, function() {
+    console.log('fail1')
+})
+
+result.then(function() {
+    console.log('ok2')
+}, function() {
+    console.log('fail2')
+})
 ```
     
       
