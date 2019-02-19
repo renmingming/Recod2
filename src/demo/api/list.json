@@ -1,0 +1,14 @@
+[
+    {
+        "id": 1,
+        "name": "《javascript设计模式》",
+        "price": 100,
+        "discount": 1
+    },
+    {
+        "id": 1,
+        "name": "《javascript设计模式综合应用》",
+        "price": 300,
+        "discount": 0
+    }
+]
