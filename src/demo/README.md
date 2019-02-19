@@ -4,4 +4,4 @@
 
 ![Image](https://github.com/renmingming/Recod2/blob/master/src/demo/UML/cart-UML.png)
 
-## 涉及：工厂模式、单例模式、
+## 涉及：工厂模式、单例模式、状态模式
