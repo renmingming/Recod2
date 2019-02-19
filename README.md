@@ -570,5 +570,14 @@ result.then(function() {
     console.log('fail2')
 })
 ```
+
+10、原型模式
+    clone自己，生成新的对象
+    Object.create()
+
+
+
+
+11、
     
       
