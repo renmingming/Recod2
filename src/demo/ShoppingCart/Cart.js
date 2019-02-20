@@ -17,9 +17,12 @@ class Cart{
     }
 
     getList() {
+        console.log(this.list.map(item => {
+            return item.name
+        }))
         return this.list.map(item => {
             return item.name
-        }).json('\n')
+        }).join('\n')
     }
 }
 

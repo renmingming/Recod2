@@ -6,9 +6,21 @@
         "discount": 1
     },
     {
-        "id": 1,
+        "id": 2,
         "name": "《javascript设计模式综合应用》",
         "price": 300,
+        "discount": 0
+    },
+    {
+        "id": 3,
+        "name": "《设计模式综合应用》",
+        "price": 200,
+        "discount": 1
+    },
+    {
+        "id": 4,
+        "name": "《javascript设计模式综合应用2》",
+        "price": 150,
         "discount": 0
     }
 ]

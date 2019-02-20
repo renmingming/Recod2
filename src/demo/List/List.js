@@ -24,7 +24,8 @@ export default class List {
         //     item.init()
         //     return item
         // })
-        data.each(itemData => {
+        console.log(data)
+        data.forEach(itemData => {
             // 创建一个 Item 然后 init
             let item = createItem(this, itemData)
             item.init()
