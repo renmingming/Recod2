@@ -578,8 +578,30 @@ result.then(function() {
     Object.create()
 
 
+11、策略模式
 
+    避免过多的if条件语句；
+    提供了开放-封闭原则，使代码更容易理解和扩展；
+    代码可复用
 
-11、
+    如：
+    ```
+        var obj = {
+            "a": function(salary) {
+                return salary * 4;
+            },
+            "b": function(salary) {
+                return salary * 3;
+            },
+            "c": function(salary) {
+                return salary * 2;
+            }
+        }
+
+        var calculateBouns = function(level, salary) {
+            return obj[level](salary);
+        }
+        calculateBouns('a', 10000)
+    ```
     
       

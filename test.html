@@ -5,8 +5,72 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <style>
+    input{
+        border:1px solid #dfdfdf;
+    }
+    </style>
 </head>
 <body>
-    1234
+    <form action = "http://www.baidu.com" id="registerForm" method = "post">
+        <p>
+            <label>请输入用户名：</label>
+            <input type="text" name="userName"/>
+        </p>
+        <p>
+            <label>请输入密码：</label>
+            <input type="text" name="password"/>
+        </p>
+        <p>
+            <label>请输入手机号码：</label>
+            <input type="text" name="phoneNumber"/>
+        </p>
+    </form>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+        var strategy = {
+            // 是否为空
+            isNotEmpty: function(value, errorMsg) {
+                if(value === '') {
+                    return errorMsg
+                }
+            },
+            // 限制最小长度
+            minLength: function(value, length, errorMsg) {
+                if(value.length < length) {
+                    return errorMsg
+                }
+            },
+            // 手机号码格式
+            mobileFormet: function(value, errorMsg) {
+                if(!/^1[3|4|5|6|7|8|9][0-9]{9}$/.test(value)) {
+                    return errorMsg
+                }
+            }
+        }
+
+        var Validator = function() {
+            this.cache = []; // 保存效验规则
+        }
+
+        Validator.prototype.add = function(dom, rule, errorMsg) {
+            var str = rule.split(":");
+            this.cache.push(function() {
+                var strategy = str.shift();
+                str.unshift(dom.value);
+                str.push(errorMsg);
+                return strategys[strategy].apply(dom, str)
+            })
+        }
+
+        validator.prototype.start = function() {
+            for(var i = 0, validatorFunc; validatorfunc = this.cache[i++];) {
+                var msg = validatorFunc();
+                if(msg) {
+                    return msg;
+                }
+            }
+        }
+    </script>
 </body>
 </html>
